@@ -1,29 +1,80 @@
 #!/bin/sh
-set -u
+set -eo pipefail
 
-EMU_EXE=melondsds
-CORES_PATH="$(dirname "$0")"
+rm -f "$LOGS_PATH/NDS.txt"
+exec >>"$LOGS_PATH/NDS.txt"
+exec 2>&1
 
-EMU_TAG="$(basename "$(dirname "$0")" .pak)"
-ROM="$1"
+echo "$0" "$@"
 
-mkdir -p "$BIOS_PATH/$EMU_TAG"
-mkdir -p "$SAVES_PATH/$EMU_TAG"
+EMU_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak/drastic"
+PACK_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak"
 
-HOME="$USERDATA_PATH"
-cd "$HOME"
+export PATH="$EMU_DIR:$PACK_DIR/bin:$PATH"
+export LD_LIBRARY_PATH="$EMU_DIR/libs:$PACK_DIR/lib:$LD_LIBRARY_PATH"
 
-LOG_OUT="/tmp/melondsds_launch.log"
-if [ -n "${LOGS_PATH:-}" ]; then
-    mkdir -p "$LOGS_PATH" 2>/dev/null || true
-    LOG_OUT="$LOGS_PATH/$EMU_TAG.txt"
-fi
+cleanup() {
+    rm -f /tmp/stay_awake
 
-{
-    echo "ROM=$ROM"
-    echo "CORE=$CORES_PATH/${EMU_EXE}_libretro.so"
-    echo "BIOS_PATH=$BIOS_PATH/$EMU_TAG"
-    echo "SAVES_PATH=$SAVES_PATH/$EMU_TAG"
-} > "$LOG_OUT" 2>&1
+    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt" ]; then
+        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt" \
+            >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt"
+    fi
+    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt" ]; then
+        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt" \
+            >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt"
+    fi
+    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt" ]; then
+        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt" \
+            >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt"
+    fi
 
-minarch.elf "$CORES_PATH/${EMU_EXE}_libretro.so" "$ROM" >> "$LOG_OUT" 2>&1
+    umount "$EMU_DIR/backup" 2>/dev/null || true
+    umount "$EMU_DIR/cheats" 2>/dev/null || true
+    umount "$EMU_DIR/savestates" 2>/dev/null || true
+}
+
+main() {
+    mkdir -p "$USERDATA_PATH/NDS-advanced-drastic"
+
+    echo "1" >/tmp/stay_awake
+    trap "cleanup" EXIT INT TERM HUP QUIT
+
+    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \
+        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt"
+    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \
+        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt"
+    cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \
+        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt"
+    echo ondemand >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    echo 1608000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    echo 1800000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+    mkdir -p "$SDCARD_PATH/Saves/NDS"
+    mkdir -p "$SDCARD_PATH/Cheats/NDS"
+    mkdir -p "$EMU_DIR/backup"
+    mkdir -p "$EMU_DIR/cheats"
+    mkdir -p "$EMU_DIR/savestates"
+
+    if [ -d "$EMU_DIR/cheats" ]; then
+        if ls -A "$EMU_DIR/cheats" | grep -q .; then
+            cd "$EMU_DIR/cheats"
+            mv * "$SDCARD_PATH/Cheats/NDS/" 2>/dev/null || true
+        fi
+    fi
+
+    mount -o bind "$SDCARD_PATH/Saves/NDS" "$EMU_DIR/backup"
+    mount -o bind "$SDCARD_PATH/Cheats/NDS" "$EMU_DIR/cheats"
+
+    mkdir -p "$SHARED_USERDATA_PATH/NDS-advanced-drastic"
+    mount -o bind "$SHARED_USERDATA_PATH/NDS-advanced-drastic" "$EMU_DIR/savestates"
+
+    cd "$EMU_DIR"
+    export HOME="$EMU_DIR"
+    "$EMU_DIR/drastic" "$*"
+}
+
+main "$@"
