@@ -1,14 +1,14 @@
 ﻿# Nintendo DS (NDS) PAK
 
-> **Emulator:** [Advanced DraStic](https://github.com/trngaje/advanced_drastic) (DraStic 1.0.8 + libadvdrastic mali build)
+> **Emulator:** DraStic (vanilla 64-bit binary with A133P/A523 native SDL2)
 > **Target:** Allwinner A523 / Mali-G57 (TrimUI Smart Pro S / TG5050) — NextUI
-> **Status:** Beta 0.6.0
+> **Status:** v0.7.0
 
 ## Description
 
-Nintendo DS emulator PAK for NextUI on TrimUI Smart Pro S. Uses the DraStic emulator with trngaje's Advanced DraStic hooks (knulli_mali build), which is compatible with the Mali-G57 Bifrost GPU on the A523 SoC.
+Nintendo DS emulator PAK for NextUI on TrimUI Smart Pro S. Uses the vanilla DraStic 64-bit emulator with an A133P/A523-native SDL2 build, compatible with the Mali-G57 Bifrost GPU.
 
-Based on [josegonzalez/minui-nintendo-ds-pak](https://github.com/josegonzalez/minui-nintendo-ds-pak) (tg5040/A133), adapted for tg5050/A523 with Mali GPU libraries instead of PowerVR.
+Based on SpruceOS's DraStic integration for SmartPro/SmartProS, adapted for the NextUI PAK format.
 
 ## Installation
 
@@ -40,7 +40,7 @@ Based on [josegonzalez/minui-nintendo-ds-pak](https://github.com/josegonzalez/mi
 
 ## Saves & States
 
-- Save states: `/.userdata/shared/NDS-advanced-drastic/`
+- Save states: `/.userdata/shared/NDS-drastic/`
 - Game saves: `/Saves/NDS/`
 
 ## Supported Platforms
@@ -49,7 +49,7 @@ Based on [josegonzalez/minui-nintendo-ds-pak](https://github.com/josegonzalez/mi
 
 ## Credits
 
-- [trngaje](https://github.com/trngaje) — Advanced DraStic & libadvdrastic
+- [SpruceOS](https://github.com/spruceOS/spruceOS) — DraStic integration & A133P SDL2 build
 - [josegonzalez](https://github.com/josegonzalez) — minui-nintendo-ds-pak reference
 - DraStic — Proprietary DS emulator by Exophase
 
@@ -57,4 +57,3 @@ Based on [josegonzalez/minui-nintendo-ds-pak](https://github.com/josegonzalez/mi
 
 - PAK: See LICENSE file
 - DraStic: Proprietary (see drastic_readme.txt)
-- libadvdrastic: See [upstream](https://github.com/trngaje/advanced_drastic)

@@ -11,25 +11,26 @@ EMU_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak/drastic"
 PACK_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak"
 
 export PATH="$EMU_DIR:$PACK_DIR/bin:$PATH"
-export LD_LIBRARY_PATH="$EMU_DIR/libs:$PACK_DIR/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$EMU_DIR/libs:$PACK_DIR/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export SDL_AUDIODRIVER=dsp
 
 cleanup() {
     rm -f /tmp/stay_awake
 
-    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt" ]; then
-        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt" \
+    if [ -f "$USERDATA_PATH/NDS-drastic/cpu_governor.txt" ]; then
+        cat "$USERDATA_PATH/NDS-drastic/cpu_governor.txt" \
             >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt"
+        rm -f "$USERDATA_PATH/NDS-drastic/cpu_governor.txt"
     fi
-    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt" ]; then
-        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt" \
+    if [ -f "$USERDATA_PATH/NDS-drastic/cpu_min_freq.txt" ]; then
+        cat "$USERDATA_PATH/NDS-drastic/cpu_min_freq.txt" \
             >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt"
+        rm -f "$USERDATA_PATH/NDS-drastic/cpu_min_freq.txt"
     fi
-    if [ -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt" ]; then
-        cat "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt" \
+    if [ -f "$USERDATA_PATH/NDS-drastic/cpu_max_freq.txt" ]; then
+        cat "$USERDATA_PATH/NDS-drastic/cpu_max_freq.txt" \
             >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-        rm -f "$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt"
+        rm -f "$USERDATA_PATH/NDS-drastic/cpu_max_freq.txt"
     fi
 
     umount "$EMU_DIR/backup" 2>/dev/null || true
@@ -38,17 +39,17 @@ cleanup() {
 }
 
 main() {
-    mkdir -p "$USERDATA_PATH/NDS-advanced-drastic"
+    mkdir -p "$USERDATA_PATH/NDS-drastic"
 
     echo "1" >/tmp/stay_awake
     trap "cleanup" EXIT INT TERM HUP QUIT
 
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor \
-        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_governor.txt"
+        >"$USERDATA_PATH/NDS-drastic/cpu_governor.txt"
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq \
-        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_min_freq.txt"
+        >"$USERDATA_PATH/NDS-drastic/cpu_min_freq.txt"
     cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq \
-        >"$USERDATA_PATH/NDS-advanced-drastic/cpu_max_freq.txt"
+        >"$USERDATA_PATH/NDS-drastic/cpu_max_freq.txt"
     echo ondemand >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     echo 1608000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     echo 1800000 >/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
@@ -69,8 +70,8 @@ main() {
     mount -o bind "$SDCARD_PATH/Saves/NDS" "$EMU_DIR/backup"
     mount -o bind "$SDCARD_PATH/Cheats/NDS" "$EMU_DIR/cheats"
 
-    mkdir -p "$SHARED_USERDATA_PATH/NDS-advanced-drastic"
-    mount -o bind "$SHARED_USERDATA_PATH/NDS-advanced-drastic" "$EMU_DIR/savestates"
+    mkdir -p "$SHARED_USERDATA_PATH/NDS-drastic"
+    mount -o bind "$SHARED_USERDATA_PATH/NDS-drastic" "$EMU_DIR/savestates"
 
     cd "$EMU_DIR"
     export HOME="$EMU_DIR"

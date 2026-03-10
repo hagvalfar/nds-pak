@@ -1,8 +1,8 @@
 ﻿{
     "name": "NDS",
-    "version": "0.6.0-beta",
+    "version": "0.7.0",
     "type": "EMU",
-    "description": "Nintendo DS emulation via Advanced DraStic (Mali build)",
+    "description": "Nintendo DS emulation via DraStic (A133P/A523 native)",
     "author": "hagvalfar",
     "repo_url": "https://github.com/hagvalfar/nds-pak",
     "release_filename": "NDS.pak.zip",
