@@ -8,17 +8,18 @@ exec 2>&1
 
 echo "$0" "$@"
 
-mkdir -p "$USERDATA_PATH/NDS-advanced-drastic"
-EMU_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak/drastic"
-PACK_DIR="$SDCARD_PATH/Emus/$PLATFORM/NDS.pak"
+PAK_DIR="$(dirname "$0")"
 
-export PATH="$EMU_DIR:$PACK_DIR/bin:$PATH"
+mkdir -p "$USERDATA_PATH/NDS-advanced-drastic"
+EMU_DIR="$PAK_DIR/drastic"
+
+export PATH="$EMU_DIR:$PAK_DIR/bin:$PATH"
 
 # Try platform-specific lib path first, fallback to generic lib path
 if [ -d "$EMU_DIR/libs" ]; then
-	export LD_LIBRARY_PATH="$EMU_DIR/libs:$PACK_DIR/lib:$LD_LIBRARY_PATH"
+	export LD_LIBRARY_PATH="$EMU_DIR/libs:$PAK_DIR/lib:$LD_LIBRARY_PATH"
 else
-	export LD_LIBRARY_PATH="$PACK_DIR/lib:$LD_LIBRARY_PATH"
+	export LD_LIBRARY_PATH="$PAK_DIR/lib:$LD_LIBRARY_PATH"
 fi
 
 cleanup() {

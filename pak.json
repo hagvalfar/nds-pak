@@ -1,5 +1,6 @@
 {
   "name": "NDS",
+  "version": "0.7.2",
   "type": "EMU",
   "description": "Runs drastic in standalone mode for the specified rom",
   "author": "josegonzalez",
@@ -12,7 +13,5 @@
   "update_ignore": [
     "drastic/config/drastic.cfg",
     "drastic/resources/settings.json"
-  ],
-  "launch": "launch.sh",
-  "version": "0.7.1"
+  ]
 }

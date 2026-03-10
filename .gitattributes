@@ -1,0 +1,4 @@
+# Enforce LF line endings for shell scripts (critical for Linux target)
+*.sh text eol=lf
+*.cfg text eol=lf
+*.json text eol=lf
