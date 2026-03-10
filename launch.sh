@@ -74,7 +74,9 @@ main() {
 
     cd "$EMU_DIR"
     export HOME="$EMU_DIR"
-    minui-power-control drastic &
+    if command -v minui-power-control >/dev/null 2>&1; then
+        minui-power-control drastic &
+    fi
     "$EMU_DIR/drastic" "$*"
 }
 
