@@ -1,7 +1,7 @@
 # Nintendo DS (NDS) PAK
 
 ## Beschreibung (German)
-Dies ist ein Nintendo-DS-Emulator-PAK für die NextUI-Plattform. Das PAK wurde mit Unterstützung von künstlicher Intelligenz (KI) erstellt und enthält alle notwendigen Konfigurationen, Cheats und Bibliotheken für die Emulation von NDS-Spielen.
+Dies ist ein Nintendo-DS-Emulator-PAK für die NextUI-Plattform (TrimUI Brick / TrimUI Smart Pro S). Das PAK wurde mit Unterstützung von künstlicher Intelligenz (KI) erstellt und enthält alle notwendigen Konfigurationen, Cheats und Bibliotheken für die Emulation von NDS-Spielen.
 
 **Ursprünglicher Zweck:** Eigengebrauch
 **Nutzung:** Dieses Repository ist für meinen persönlichen Gebrauch bestimmt, kann aber gerne von der Community genutzt werden.
@@ -11,7 +11,7 @@ Dies ist ein Nintendo-DS-Emulator-PAK für die NextUI-Plattform. Das PAK wurde m
 ---
 
 ## Description (English)
-This is a Nintendo DS emulator PAK for the NextUI platform. The PAK was created with the assistance of artificial intelligence (AI) and includes all necessary configurations, cheats, and libraries for emulating NDS games.
+This is a Nintendo DS emulator PAK for the NextUI platform (TrimUI Brick / TrimUI Smart Pro S). The PAK was created with the assistance of artificial intelligence (AI) and includes all necessary configurations, cheats, and libraries for emulating NDS games.
 
 **Original Purpose:** Personal use
 **Usage:** This repository is for my personal use but can be freely used by the community.
