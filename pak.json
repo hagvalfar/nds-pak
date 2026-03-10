@@ -1,17 +1,17 @@
-{
-  "name": "NDS",
-  "version": "0.7.2",
-  "type": "EMU",
-  "description": "Runs drastic in standalone mode for the specified rom",
-  "author": "josegonzalez",
-  "repo_url": "https://github.com/hagvalfar/nds-pak",
-  "release_filename": "NDS.pak.zip",
-  "platforms": [
-    "tg5040",
-    "tg5050"
-  ],
-  "update_ignore": [
-    "drastic/config/drastic.cfg",
-    "drastic/resources/settings.json"
-  ]
+﻿{
+    "name":  "NDS",
+    "version":  "0.3.0-beta",
+    "type":  "EMU",
+    "description":  "Runs drastic in standalone mode for the specified rom",
+    "author":  "josegonzalez",
+    "repo_url":  "https://github.com/hagvalfar/nds-pak",
+    "release_filename":  "NDS.pak.zip",
+    "platforms":  [
+                      "tg5040",
+                      "tg5050"
+                  ],
+    "update_ignore":  [
+                          "drastic/config/drastic.cfg",
+                          "drastic/resources/settings.json"
+                      ]
 }
