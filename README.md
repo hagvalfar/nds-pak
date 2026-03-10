@@ -1,5 +1,8 @@
 # Nintendo DS (NDS) PAK
 
+> **Basiert auf / Based on:** [josegonzalez/minui-nintendo-ds-pak](https://github.com/josegonzalez/minui-nintendo-ds-pak) (DraStic)
+> **Optimiert für / Optimized for:** Allwinner A523 (TrimUI Smart Pro S / TG5050)
+
 ## Beschreibung (German)
 Dies ist ein Nintendo-DS-Emulator-PAK für die NextUI-Plattform (TrimUI Brick / TrimUI Smart Pro S). Das PAK wurde mit Unterstützung von künstlicher Intelligenz (KI) erstellt und enthält alle notwendigen Konfigurationen, Cheats und Bibliotheken für die Emulation von NDS-Spielen.
 
@@ -7,6 +10,9 @@ Dies ist ein Nintendo-DS-Emulator-PAK für die NextUI-Plattform (TrimUI Brick / 
 **Nutzung:** Dieses Repository ist für meinen persönlichen Gebrauch bestimmt, kann aber gerne von der Community genutzt werden.
 
 **Wichtiger Hinweis:**  Dieses PAK wurde noch nicht vollständig getestet. Es ist nicht garantiert, dass alle Spiele korrekt laufen werden.
+
+### A523-Optimierungen
+- CPU-Governor: `ondemand` mit min 1.6 GHz / max 2.0 GHz
 
 ---
 
@@ -17,6 +23,9 @@ This is a Nintendo DS emulator PAK for the NextUI platform (TrimUI Brick / TrimU
 **Usage:** This repository is for my personal use but can be freely used by the community.
 
 **Important Notice:**  This PAK has not been fully tested yet. It is not guaranteed that all games will run correctly.
+
+### A523 Optimizations
+- CPU governor: `ondemand` with min 1.6 GHz / max 2.0 GHz
 
 ---
 
