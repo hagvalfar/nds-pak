@@ -1,6 +1,6 @@
 ﻿{
     "name":  "NDS",
-    "version":  "0.3.0-beta",
+    "version":  "0.4.0-beta",
     "type":  "EMU",
     "description":  "Runs drastic in standalone mode for the specified rom",
     "author":  "josegonzalez",
