@@ -75,7 +75,7 @@ main() {
 
     cd "$EMU_DIR"
     export HOME="$EMU_DIR"
-    "$EMU_DIR/drastic" "$*"
+    "$EMU_DIR/drastic" "$1"
 }
 
 main "$@"
