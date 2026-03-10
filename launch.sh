@@ -22,38 +22,6 @@ else
 	export LD_LIBRARY_PATH="$PAK_DIR/lib:$LD_LIBRARY_PATH"
 fi
 
-# Apply device-specific DraStic configs on first run or platform change
-apply_device_config() {
-	DEVICE_DIR=""
-	case "$PLATFORM" in
-		tg5050) DEVICE_DIR="$EMU_DIR/devices/trimui-smart-pro" ;;
-		tg5040|tg3040) DEVICE_DIR="$EMU_DIR/devices/trimui-brick" ;;
-	esac
-
-	if [ -z "$DEVICE_DIR" ] || [ ! -d "$DEVICE_DIR/config" ]; then
-		echo "No device config found for PLATFORM=$PLATFORM"
-		return
-	fi
-
-	STAMP_FILE="$EMU_DIR/config/.device_platform"
-	CURRENT_STAMP=""
-	if [ -f "$STAMP_FILE" ]; then
-		CURRENT_STAMP="$(cat "$STAMP_FILE")"
-	fi
-
-	if [ "$CURRENT_STAMP" != "$PLATFORM" ]; then
-		echo "Applying device config for $PLATFORM from $DEVICE_DIR"
-		cp -f "$DEVICE_DIR/config/drastic.cf2" "$EMU_DIR/config/drastic.cf2"
-		cp -f "$DEVICE_DIR/config/drastic.cfg" "$EMU_DIR/config/drastic.cfg"
-		if [ -d "$DEVICE_DIR/resources" ]; then
-			cp -rf "$DEVICE_DIR/resources/"* "$EMU_DIR/resources/" 2>/dev/null || true
-		fi
-		echo "$PLATFORM" > "$STAMP_FILE"
-		sync
-	fi
-}
-apply_device_config
-
 cleanup() {
     rm -f /tmp/stay_awake
 

@@ -6,7 +6,7 @@
 
 ## Description
 
-This is a Nintendo DS emulator PAK for the NextUI platform (TrimUI Brick / TrimUI Smart Pro S). The PAK was created with the assistance of artificial intelligence (AI) and includes all necessary configurations, cheats, and libraries for emulating NDS games.
+This is a Nintendo DS emulator PAK for the NextUI platform (TrimUI Smart Pro S). The PAK was created with the assistance of artificial intelligence (AI) and includes all necessary configurations, cheats, and libraries for emulating NDS games.
 
 **Original Purpose:** Personal use
 **Status:** This PAK is in beta testing phase. It is not guaranteed that all games will run correctly.
@@ -16,9 +16,8 @@ This is a Nintendo DS emulator PAK for the NextUI platform (TrimUI Brick / TrimU
 ### Quick Install
 
 1. Download NDS.pak.zip from the [latest release](https://github.com/hagvalfar/nds-pak/releases/latest)
-2. Extract it to your TrimUI device:
-   - **TrimUI Smart Pro S (tg5050):** Extract to /Emus/tg5050/
-   - **TrimUI Brick (tg5040):** Extract to /Emus/tg5040/
+2. Extract it to your TrimUI Smart Pro S:
+   - Extract to /Emus/tg5050/
 3. Place NDS ROM files in /Roms/Nintendo DS/
 4. (Optional) Place BIOS files in /BIOS/NDS/ if required for certain games
 
@@ -52,7 +51,6 @@ Cheat files can be placed in the PAK's cheats/ directory for use with the emulat
 
 ## Supported Platforms
 
-- TrimUI Brick (tg5040)
 - TrimUI Smart Pro S (tg5050)
 
 ## License
